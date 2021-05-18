@@ -1,4 +1,4 @@
-# Starve-Free-Reader-Writer-Problem
+# StarveFree-Readers-Writers-Problem
 The Readers-writers problem is the most typical problem in process synchronization. In this problem, there are two types of users 
 Readers who want to read the shared resources.
 Writers who want to modify the shared resources. 
