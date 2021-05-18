@@ -138,4 +138,17 @@ The rwt semaphore ensures that only a single writer can access the critical sect
 Before accessing the critical section any reader or writer have to first acquire the turn semaphore which uses a FIFO queue for the blocked processes. Thus as the queue uses a FIFO policy, every process has to wait for a finite amount of time before it can access the critical section thus meeting the requirement of bounded waiting.
 ### Progress Requirement
 The code is structured so that there are no chances for deadlock and also the readers and writers takes a finite amount of time to pass through the critical section and also at the end of each reader writer code they release the semaphore for other processes to enter into critical section.
-)
+# Explanation of the Code
+
+We will be using three semaphores:
+
+1. rMutex --> this semaphore will be used for updating the readers count. So, it would only be available to readers method.
+
+2. rwt --> This semaphore would either be in control of the reader or the writer. If the readers are reading and the writers are trying to access the critical section, it would get blocked and vice versa. However, if one of the readers is reading and another reader tries to access, then there won't be any problem. This semaphore gets updated in three instances. First, when the first reader arrives. Secondly, when the last reader left the critical section. And lastly, when any writer writes to the resource.
+
+3. turn --> This semaphore is used at the start of the entry section of readers/writers code. It checks whether there is a process already waiting for its turn. If so, it gets blocked. If not, then it can access the semaphore, and no new reader or writer could now execute before this process. Therefore, it helps in preserving the order (turn) of the process.
+
+We will also be using a variable countRead to update the number of readers at a particular time.
+For the read method we would first call wait for order and rMutex. If any process is already in queue order would be one and thus calling process would be blocked. Otherwise, it would make order "1". rMutex would check that no other process is updating the readers count. If the reader count was 0, then don't allow the writer to access the critical section. After countRead is updated, both the semaphores are released. After reading of resource, countRead is decremented by getting hold of rMutex. If countRead is 0, writers can access the critical section.
+For write method, we would first check the turn semaphore and then writer would get access with the rwt semaphore. Since, the turn would be preserved we could release the turn semaphore. Then writers modifies the resourcse and finally release rwt.
+In this way, no process would starve, and our objective is accomplished.;;
