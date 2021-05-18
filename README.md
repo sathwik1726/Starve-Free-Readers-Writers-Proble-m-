@@ -1,7 +1,19 @@
-# # StarveFree_Readers_Writers_Problem
-You can find the complete design detail below.
-## Starve Free Soltuion
-The classical solution of the problem results in starvation of either reader or writer. In this solution,I have tried to propose a starve free solution.  While proposing the solution only one assumptionis made i.e.  Semaphore preserves the first in first out(FIFO) order when locking and releasing theprocesses( Semaphore uses a FIFO queue to maintain the list of blocked processes)
+# Starve-Free-Reader-Writer-Problem
+The Readers-writers problem is the most typical problem in process synchronization. In this problem, there are two types of users 
+Readers who want to read the shared resources.
+Writers who want to modify the shared resources. 
+
+There are three variations to this problem.
+
+## First readers–writers problem
+This problem allows that when at least one reader is accessing the resource, new readers can also enter the critical section to read that resource. However, in this case, the writer may lead to starvation as it may not get a chance to modify the resources as new readers may continuously enter to read the resource.
+
+## Second readers–writers problem
+This problem is also similar to the first problem, however here the readers may have to starve. The writers are given preference in this scenario. The readers must wait (just like the writers waited in the previous problem) until the last writer exits the critical section by modifying the resource and release the lock and allow readers to access the resource.
+
+## Third readers–writers problem
+This problem subdues the shortcomings of the previous two problems of starvation and therefore, it is known as the Starve-Free-Readers-Writers-Problem. Here, the priority of the resources is decided according to their arrival time. For example, if a writer wants to write to the resource then it will have to wait for the current reader to execute their tasks. Meanwhile, other readers accessing the resource would not be allowed to do so.
+
 ### Semaphore
 Designing a Semaphore with FIRST-IN-FIRST-OUT(FIFO) queue to maintain the list of blocked processes
 ```cpp
