@@ -138,7 +138,7 @@ The rwt semaphore ensures that only a single writer can access the critical sect
 Before accessing the critical section any reader or writer have to first acquire the turn semaphore which uses a FIFO queue for the blocked processes. Thus as the queue uses a FIFO policy, every process has to wait for a finite amount of time before it can access the critical section thus meeting the requirement of bounded waiting.
 ### Progress Requirement
 The code is structured so that there are no chances for deadlock and also the readers and writers takes a finite amount of time to pass through the critical section and also at the end of each reader writer code they release the semaphore for other processes to enter into critical section.
-# Explanation of the Code
+### Explanation of the Code
 
 We will be using three semaphores:
 
