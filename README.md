@@ -1,7 +1,9 @@
 # StarveFree-Readers-Writers-Problem
 The readers-writers problem is a classical one in computer science:
 we have a resource that can be accessed by readers, who do not modify the resource, and writers, who can modify the resource. When a writer is modifying the resource, no-one else can access it at the same time: another writer could corrupt the resource, and another reader could read a partially modified value.
+
 Readers: who want to read the shared resources.
+
 Writers: who want to modify the shared resources. 
 
 There are three variations to this problem.
