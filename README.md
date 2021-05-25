@@ -6,14 +6,16 @@ Writers who want to modify the shared resources.
 There are three variations to this problem.
 
 ## First readers–writers problem
-This problem allows that when at least one reader is accessing the resource, new readers can also enter the critical section to read that resource. However, in this case, the writer may lead to starvation as it may not get a chance to modify the resources as new readers may continuously enter to read the resource.
+### Give readers priority: 
+When there is at least one reader currently accessing the resource, allow new readers to access it as well. This can cause starvation if there are writers waiting to modify the resource and new readers arrive all the time, as the writers will never be granted access as long as there is at least one active reader.
 
 ## Second readers–writers problem
-This problem is also similar to the first problem, however here the readers may have to starve. The writers are given preference in this scenario. The readers must wait (just like the writers waited in the previous problem) until the last writer exits the critical section by modifying the resource and release the lock and allow readers to access the resource.
+### Give writers priority: 
+Here, readers may starve because this problem is also similar to the first problem. The writers are given preference in this scenario. The readers must wait until the last writer exits the critical section by modifying the resource and release the lock and allow readers to access the resource.
 
 ## Third readers–writers problem
-This problem subdues the shortcomings of the previous two problems of starvation and therefore, it is known as the Starve-Free-Readers-Writers-Problem. Here, the priority of the resources is decided according to their arrival time. For example, if a writer wants to write to the resource then it will have to wait for the current reader to execute their tasks. Meanwhile, other readers accessing the resource would not be allowed to do so.
-
+### Give neither priority: 
+All readers and writers will be granted access to the resource in their order of arrival. If a writer arrives while readers are accessing the resource, it will wait until those readers free the resource, and then modify it. New readers arriving in the meantime will have to wait.
 ### Semaphore
 Designing a Semaphore with FIRST-IN-FIRST-OUT(FIFO) queue to maintain the list of blocked processes
 ```cpp
